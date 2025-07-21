@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сети Петри</title>
+
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/net.css">
+</head>
+<body>
+    <div class="content">
+        <div class="row">
+            <div class="col-9" id="net">
+                <div class="states">
+                    <div class="state-component" id="state-ready-to-consume">
+                        <span class="state-label">Готов потреблять</span>
+                        <p class="state">b</p>
+                    </div>
+                    <div class="state-component" id="state-received">
+                        <span class="state-label">Получено</span>
+                        <p class="state"></p>
+                    </div>
+                    <div class="state-component" id="state-limit-to-out">
+                        <span class="state-label">Огранич. на выход. буфер</span>
+                        <p class="state">d</p>
+                    </div>
+                    <div class="state-component" id="state-out">
+                        <span class="state-label">Выход. буфер</span>
+                        <p class="state"></p>
+                    </div>
+                    <div class="state-component" id="state-ready-to-produce">
+                        <span class="state-label">Готов производить</span>
+                        <p class="state">a</p>
+                    </div>
+                    <div class="state-component" id="state-limit-to-in">
+                        <span class="state-label">Ограничение на вход. буфер</span>
+                        <p class="state">c</p>
+                    </div>
+                    <div class="state-component" id="state-in">
+                        <span class="state-label">Вход. буфер</span>
+                        <p class="state"></p>
+                    </div>
+                </div>
+                <div class="transitions">
+                    <div class="transition-component" id="transition-take-from-in">
+                        <span class="transition-label">Взять из вход. буфера</span>
+                        <div class="transition-rect"></div>
+                    </div>
+                    <div class="transition-component" id="transition-write-to-in">
+                        <span class="transition-label">Записать во вход. буфер</span>
+                        <div class="transition-rect"></div>
+                    </div>
+                    <div class="transition-component" id="transition-write-to-out">
+                        <span class="transition-label">Записать в выход. буфер</span>
+                        <div class="transition-rect"></div>
+                    </div>
+                </div>
+                <div class="arcs">
+
+                </div>
+            </div>
+            <div class="col-3" id="settings">
+                <!-- settings -->
+            </div>
+        </div>
+        <div class="row">
+            <!-- actions -->
+        </div>
+    </div>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+    <script src="./scripts/main.js"></script>
+</body>
+</html>

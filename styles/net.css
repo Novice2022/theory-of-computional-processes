@@ -163,6 +163,10 @@
     );
 }
 
+#sc-to-tc .arrow-end {
+    top: -6px;
+}
+
 #sc-to-tc {
     top: calc(
         var(--top-offset) +
@@ -203,6 +207,12 @@
     );
 }
 
+#ta-to-sf .arrow-end {
+    transform: rotate(-90deg);
+    top: -45px;
+    left: 44px;
+}
+
 #ta-to-sf {
     top: calc(
         var(--top-offset) +
@@ -232,6 +242,14 @@
     );
     height: calc(
         var(--state-to-transition-distance)
+    );
+}
+
+#sf-to-tb .arrow-end {
+    left: calc(
+        130px -
+        (var(--state-to-transition-distance) / 2 - 2px) -
+        4px - 2px - 15px
     );
 }
 
@@ -315,6 +333,12 @@
     );
 }
 
+#tb-to-se .arrow-end {
+    top: -221px;
+    left: -5px;
+    transform: rotate(90deg);
+}
+
 #tb-to-se {
     top: calc(
         var(--top-offset) +
@@ -385,6 +409,11 @@
     left: -242px;
     width: 0;
     height: 68px;
+}
+
+#sg-to-ta .arrow-end {
+    top: calc(-498px);
+    left: -242px;
 }
 
 #sg-to-ta {

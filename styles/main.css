@@ -57,8 +57,31 @@
     border: 1px solid black;
 }
 
-.arc-line.first {
+.arc-component .first {
     height: calc(
         var(--state-to-transition-distance) - 2px
     );
+}
+
+.arrow-end {
+    position: relative;
+}
+
+.arrow-end-line {
+    width: 0;
+    height: 7px;
+    border: 1px solid black;
+    position: relative;
+}
+
+.arrow-end .left {
+    top: -9px;
+    left: -4px;
+    transform: rotate(-45deg);
+}
+
+.arrow-end .right {
+    top: -18px;
+    right: -4px;
+    transform: rotate(45deg);
 }

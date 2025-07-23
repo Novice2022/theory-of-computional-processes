@@ -15,8 +15,12 @@
     margin: 0 10%;
 }
 
-.state-component, .transition-component {
+.state-component,
+.transition-component,
+.arc-component {
     position: absolute;
+    top: var(--top-offset);
+    left: var(--left-offset);
 }
 
 .state {
@@ -45,4 +49,16 @@
     display: flex;
     max-width: 100px;
     text-align: center;
+}
+
+.arc-line {
+    width: 0;
+    position: relative;
+    border: 1px solid black;
+}
+
+.arc-line.first {
+    height: calc(
+        var(--state-to-transition-distance) - 2px
+    );
 }

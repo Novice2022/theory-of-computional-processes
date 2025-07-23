@@ -13,51 +13,125 @@
         <div class="row">
             <div class="col-9" id="net">
                 <div class="states">
-                    <div class="state-component" id="state-ready-to-consume">
+                    <div class="state-component" id="state-ready-to-consume" name="sa">
                         <span class="state-label">Готов потреблять</span>
                         <p class="state">b</p>
                     </div>
-                    <div class="state-component" id="state-received">
+                    <div class="state-component" id="state-received" name="sb">
                         <span class="state-label">Получено</span>
                         <p class="state"></p>
                     </div>
-                    <div class="state-component" id="state-limit-to-out">
+                    <div class="state-component" id="state-limit-to-out" name="sc">
                         <span class="state-label">Огранич. на выход. буфер</span>
                         <p class="state">d</p>
                     </div>
-                    <div class="state-component" id="state-out">
+                    <div class="state-component" id="state-out" name="sd">
                         <span class="state-label">Выход. буфер</span>
                         <p class="state"></p>
                     </div>
-                    <div class="state-component" id="state-ready-to-produce">
+                    <div class="state-component" id="state-ready-to-produce" name="se">
                         <span class="state-label">Готов производить</span>
                         <p class="state">a</p>
                     </div>
-                    <div class="state-component" id="state-limit-to-in">
+                    <div class="state-component" id="state-limit-to-in" name="sf">
                         <span class="state-label">Ограничение на вход. буфер</span>
                         <p class="state">c</p>
                     </div>
-                    <div class="state-component" id="state-in">
+                    <div class="state-component" id="state-in" name="sg">
                         <span class="state-label">Вход. буфер</span>
                         <p class="state"></p>
                     </div>
                 </div>
                 <div class="transitions">
-                    <div class="transition-component" id="transition-take-from-in">
+                    <div class="transition-component" id="transition-take-from-in" name="ta">
                         <span class="transition-label">Взять из вход. буфера</span>
                         <div class="transition-rect"></div>
                     </div>
-                    <div class="transition-component" id="transition-write-to-in">
+                    <div class="transition-component" id="transition-write-to-in" name="tb">
                         <span class="transition-label">Записать во вход. буфер</span>
                         <div class="transition-rect"></div>
                     </div>
-                    <div class="transition-component" id="transition-write-to-out">
+                    <div class="transition-component" id="transition-write-to-out" name="tc">
                         <span class="transition-label">Записать в выход. буфер</span>
                         <div class="transition-rect"></div>
                     </div>
                 </div>
                 <div class="arcs">
+                    <div class="arc-component" id="sa-to-ta">
+                        <div class="arc-line first"></div>
+                        <div class="arrow-end">
 
+                        </div>
+                    </div>
+                    <div class="arc-component" id="ta-to-sb">
+                        <div class="arc-line first"></div>
+                        <div class="arrow-end">
+
+                        </div>
+                    </div>
+                    <div class="arc-component" id="sb-to-tc">
+                        <div class="arc-line first"></div>
+                        <div class="arrow-end">
+
+                        </div>
+                    </div>
+                    <div class="arc-component" id="sc-to-tc">
+                        <div class="arc-line first"></div>
+                        <div class="arc-line second"></div>
+                        <div class="arrow-end">
+
+                        </div>
+                    </div>
+                    <div class="arc-component" id="tc-to-sd">
+                        <div class="arc-line first"></div>
+                        <div class="arrow-end">
+
+                        </div>
+                    </div>
+                    <div class="arc-component" id="ta-to-sf">
+                        <div class="arc-line first"></div>
+                        <div class="arc-line second"></div>
+                        <div class="arrow-end">
+                            
+                        </div>
+                    </div>
+                    <div class="arc-component" id="sf-to-tb">
+                        <div class="arc-line first"></div>
+                        <div class="arc-line second"></div>
+                        <div class="arrow-end">
+
+                        </div>
+                    </div>
+                    <div class="arc-component" id="se-to-tb">
+                        <div class="arc-line first"></div>
+                        <div class="arrow-end">
+
+                        </div>
+                    </div>
+                    <div class="arc-component" id="tb-to-se">
+                        <div class="arc-line first"></div>
+                        <div class="arc-line second"></div>
+                        <div class="arc-line third"></div>
+                        <div class="arc-line fourth"></div>
+                        <div class="arrow-end">
+
+                        </div>
+                    </div>
+                    <div class="arc-component" id="tb-to-sg">
+                        <div class="arc-line first"></div>
+                        <div class="arrow-end">
+
+                        </div>
+                    </div>
+                    <div class="arc-component" id="sg-to-ta">
+                        <div class="arc-line first"></div>
+                        <div class="arc-line second"></div>
+                        <div class="arc-line third"></div>
+                        <div class="arc-line fourth"></div>
+                        <div class="arrow-end">
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-3" id="settings">

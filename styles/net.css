@@ -16,7 +16,8 @@
     top: calc(
         var(--top-offset) +
         var(--state-size) * 2 +
-        var(--state-to-transition-distance) * 2
+        var(--state-to-transition-distance) * 2 +
+        6px
     );
     left: calc(var(--left-offset) + 130px);
 }
@@ -38,11 +39,14 @@
 }
 
 #state-ready-to-produce {
-    top: calc(var(--top-offset) + 80px);
+    top: calc(
+        var(--top-offset) +
+        80px + 2px
+    );
     left: calc(
         var(--left-offset) +
         var(--state-size) +
-        70px + 130px + 28.5px
+        70px + 130px + 25px
     );
 }
 
@@ -60,7 +64,8 @@
         var(--top-offset) +
         var(--state-size) * 2 +
         var(--state-to-transition-distance) * 2 +
-        var(--state-to-transition-distance) / 2
+        var(--state-to-transition-distance) / 2 +
+        6px * 2
     );
     left: calc(
         var(--left-offset) +
@@ -83,7 +88,8 @@
     top: calc(
         var(--top-offset) +
         var(--state-size) +
-        var(--state-to-transition-distance) * 2.5 + 6px
+        var(--state-to-transition-distance) * 2.5 +
+        6px
     );
     left: calc(
         var(--left-offset) +
@@ -99,7 +105,304 @@
             var(--state-size) +
             var(--state-to-transition-distance)
         ) * 2 +
-        var(--state-to-transition-distance)
+        var(--state-to-transition-distance) +
+        6px
     );
     left: calc(var(--left-offset) + 10px);
+}
+
+
+#sa-to-ta {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size)
+    );
+    left: calc(
+        var(--left-offset) +
+        var(--state-size) / 2 - 1px
+    );
+}
+
+#ta-to-sb {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) +
+        var(--state-to-transition-distance) + 6px
+    );
+    left: calc(
+        var(--left-offset) +
+        var(--state-size) / 2 - 1px
+    );
+}
+
+#sb-to-tc {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) * 2 +
+        var(--state-to-transition-distance) * 2 + 6px
+    );
+    left: calc(
+        var(--left-offset) +
+        var(--state-size) / 2 - 1px
+    );
+}
+
+#sc-to-tc .first {
+    height: 0;
+    width: calc(
+        130px -
+        30px -
+        22.5px -
+        10px - 1px
+    );
+}
+
+#sc-to-tc .second {
+    height: calc(
+        var(--state-to-transition-distance) / 2
+    );
+}
+
+#sc-to-tc {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) * 2.5 +
+        var(--state-to-transition-distance) * 2 +
+        6px
+    );
+    left: calc(
+        var(--left-offset) +
+        10px + 22.5px + 30px
+    );
+}
+
+#tc-to-sd {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) * 2 +
+        var(--state-to-transition-distance) * 3 +
+        6px * 2
+    );
+    left: calc(
+        var(--left-offset) +
+        var(--state-size) / 2 + 15px
+    );
+}
+
+#ta-to-sf .first {
+    height: calc(var(--state-to-transition-distance) / 2 - 2px - 6px);
+}
+
+#ta-to-sf .second {
+    height: 0;
+    width: calc(
+        130px -
+        var(--top-offset) -
+        (var(--state-to-transition-distance) / 2 - 2px) -
+        4px - 2px
+    );
+}
+
+#ta-to-sf {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) +
+        var(--state-to-transition-distance) + 6px
+    );
+    left: calc(
+        var(--left-offset) +
+        var(--state-size) / 2 + 30px
+    );    
+}
+
+#sf-to-tb .first {
+    height: 0;
+    width: calc(
+        130px -
+        (var(--state-to-transition-distance) / 2 - 2px) -
+        4px - 2px - 15px
+    );
+}
+
+#sf-to-tb .second {
+    left: calc(
+        130px -
+        (var(--state-to-transition-distance) / 2 - 2px) -
+        4px - 2px - 15px
+    );
+    height: calc(
+        var(--state-to-transition-distance)
+    );
+}
+
+#sf-to-tb {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) +
+        var(--state-to-transition-distance) * 1.5 + 2px
+    );
+    left: calc(
+        var(--left-offset) +
+        130px +
+        var(--state-size)
+    );    
+}
+
+#se-to-tb .first {
+    height: calc(
+        var(--state-to-transition-distance) + 2px
+    );
+}
+
+#se-to-tb {
+    top: calc(
+        var(--top-offset) +
+        80px +
+        var(--state-size) + 2px
+    );
+    left: calc(
+        var(--left-offset) + (
+            130px +
+            var(--state-size)
+        ) + (
+            130px - (
+                var(--state-to-transition-distance) / 2 - 2px
+            ) - 4px - 2px - 15px
+        ) + 37.5px
+    );    
+}
+
+#tb-to-se .first {
+    height: calc(
+        var(--state-to-transition-distance) / 2 + 1px
+    );
+}
+
+#tb-to-se .second {
+    height: 0;
+    width: 50px;
+}
+
+#tb-to-se .third {
+    left: 50px;
+    top: calc(
+        var(--state-to-transition-distance) * -1.5 -
+        6px - 2px -
+        var(--state-size) / 2 - 2px
+    );
+    height: calc(
+        var(--state-to-transition-distance) * 1.5 +
+        6px - 2px +
+        var(--state-size) / 2 + 2px
+    );
+}
+
+#tb-to-se .fourth {
+    left: calc(
+        var(--state-size) / 2
+    );
+    top: calc(
+        (
+            var(--state-to-transition-distance) * -1.5 -
+            6px - 2px -
+            var(--state-size) / 2
+        ) * 2 - 6px + 2px
+    );
+    height: 0;
+    width: calc(
+        50px -
+        var(--state-size) / 2
+    );
+}
+
+#tb-to-se {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) +
+        var(--state-to-transition-distance) * 2.5 + 2px +
+        6px + 4px
+    );
+    left: calc(
+        var(--left-offset) +
+        130px +
+        var(--state-size) +
+        130px -
+        (var(--state-to-transition-distance) / 2 - 2px) -
+        4px - 2px - 15px +
+        37.5px
+    );    
+}
+
+#tb-to-sg .first {
+    height: calc(
+        var(--state-to-transition-distance) + 2px
+    );
+}
+
+#tb-to-sg {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) +
+        var(--state-to-transition-distance) * 2.5 + 2px +
+        6px + 4px
+    );
+    left: calc(
+        var(--left-offset) +
+        130px +
+        var(--state-size) +
+        130px -
+        (var(--state-to-transition-distance) / 2 - 2px) -
+        4px - 2px - 15px
+    );    
+}
+
+#sg-to-ta .first {
+    height: 0;
+    width: 90px;
+}
+
+#sg-to-ta .second {
+    position: relative;
+    top: calc(
+        -2px -
+        245px
+    );
+    left: 90px;
+    width: 0;
+    height: 245px;
+}
+
+#sg-to-ta .third {
+    position: relative;
+    top: -496px;
+    left: -240px;
+    width: 330px;
+}
+
+#sg-to-ta .fourth {
+    position: relative;
+    top: -498px;
+    left: -242px;
+    width: 0;
+    height: 68px;
+}
+
+#sg-to-ta {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) +
+        var(--state-to-transition-distance) * 2.5 + 2px +
+        6px + 4px +
+        var(--state-to-transition-distance) +
+        var(--state-size) / 2 + 4px
+    );
+    left: calc(
+        var(--left-offset) +
+        130px +
+        var(--state-size) +
+        130px -
+        (var(--state-to-transition-distance) / 2 - 2px) -
+        4px - 2px - 15px +
+        30px - 1px
+    );    
 }

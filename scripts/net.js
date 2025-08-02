@@ -15,9 +15,10 @@ class State {
      */
     setTokens(count) {
         this.tokens = count;
-        this.element.getElementsByTagName('p')[0].textContent = count;
+        this.element.getElementsByTagName('p')[0].innerHTML =
+            `<span class="state-value">${count}</span>`;
     }
-
+    
     incrementTokens() {
         this.setTokens(this.tokens + 1);
     }
@@ -56,6 +57,19 @@ class Transition {
         this.outputArcs.forEach(output => {
             output.destination.incrementTokens();
         });
+    }
+
+    drawSuccess() {
+        this.inputArcs.forEach(input => input.arc.setColor('green'));
+        this.element.getElementsByClassName('transition-rect')[0].style.borderColor = 'green';
+        this.outputArcs.forEach(output => output.arc.setColor('green'));
+    }
+
+    drawFail() {
+        this.inputArcs.filter(input => input.source.tokens <= 0).forEach(input => {
+            input.arc.setColor('red');
+        });
+        this.element.getElementsByClassName('transition-rect')[0].style.borderColor = 'red';
     }
 }
 
@@ -115,6 +129,10 @@ const
     sf = new State(document.getElementsByName('sf')[0], 0),
     sg = new State(document.getElementsByName('sg')[0], 0);
 
+const resetTokens = () => {
+    [ sa, sb, sc, sd, se, sf, sg ].forEach(state => state.setTokens(0));
+}
+
 const
     sa_to_ta = new Arc(document.getElementById('sa-to-ta')),
     ta_to_sb = new Arc(document.getElementById('ta-to-sb')),
@@ -126,7 +144,25 @@ const
     se_to_tb = new Arc(document.getElementById('se-to-tb')),
     tb_to_se = new Arc(document.getElementById('tb-to-se')),
     tb_to_sg = new Arc(document.getElementById('tb-to-sg')),
-    sg_to_ta = new Arc(document.getElementById('sg-to-ta'));
+    sg_to_ta = new Arc(document.getElementById('sg-to-ta')),
+    tc_to_sa = new Arc(document.getElementById('tc-to-sa'));
+
+const resetColors = () => {
+    [
+        sa_to_ta,
+        ta_to_sb,
+        sb_to_tc,
+        sc_to_tc,
+        tc_to_sd,
+        ta_to_sf,
+        sf_to_tb,
+        se_to_tb,
+        tb_to_se,
+        tb_to_sg,
+        sg_to_ta,
+        tc_to_sa
+    ].forEach(arc => arc.setColor('black'));
+}
 
 const
     ta = new Transition(
@@ -158,15 +194,45 @@ const
             new Input(sc, sc_to_tc)
         ],
         [
+            new Output(sa, tc_to_sa),
             new Output(sd, tc_to_sd)
         ]
     );
 
+const resetTransitionsColors = () => {
+    [ ta, tb, tc ].forEach(transition => {
+        transition.element.getElementsByClassName('transition-rect')[0].style.borderColor = 'black';
+    });
+}
+
 
 function iterate() {
+    resetColors();
+    
+    const transitions = [ta, tb, tc];
     const shouldExecute = [false, false, false];
 
-    [ta, tb, tc].forEach((transition, i) => {
+    transitions.forEach((transition, i) => {
+        if (transition.isEnabled())
+            shouldExecute[i] = true;
+    });
+
+
+    transitions.filter((_, i) => {
+        return !shouldExecute[i];
+    }).map(transition => {
+        transition.drawFail();
+    });
+    
+    transitions.filter((_, i) => {
+        return shouldExecute[i];
+    }).map(transition => {
+        transition.execute();
+        transition.drawSuccess();
+    });
+
+
+    transitions.forEach((transition, i) => {
         if (transition.isEnabled())
             shouldExecute[i] = true;
     });
@@ -174,24 +240,7 @@ function iterate() {
     if (shouldExecute.every(element => !element)) {
         canExecute = false;
         document.getElementById('iterate').disabled = true;
-        
-        return;
     }
-
-    [ta, tb, tc].map((transition, i) => {
-        if (shouldExecute[i]) {
-            transition.execute();
-
-            transition.inputArcs.forEach(input => input.arc.setColor('green'));
-            transition.element.style.borderColor = 'green';
-            transition.outputArcs.forEach(output => output.arc.setColor('green'));
-        } else {
-            transition.inputArcs.filter(input => input.source.tokens <= 0).forEach(input => {
-                input.arc.setColor('red');
-            });
-            transition.element.style.borderColor = 'red';
-        }
-    });
 }
 
 function getReachabilityTree() {

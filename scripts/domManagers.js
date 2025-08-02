@@ -18,6 +18,7 @@ const manageStatesLabels = () => {
             label.style.left = `-${ (width - STATE_DIAMETER_PX) / 2 }px`;
         }
         else if ([
+            'state-ready-to-consume',
             'state-limit-to-in',
             'state-ready-to-produce'
         ].includes(label.parentElement.id)) {

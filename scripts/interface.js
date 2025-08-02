@@ -1,27 +1,16 @@
 const updateState = (inputId, state) => {
     state.setTokens(document.getElementById(inputId).value);
+
+    // resetColors();
+    // resetTransitionsColors();
+
+    canExecute = true;
 }
 
 function resetStates() {
-    sa.setTokens(0);
-    sb.setTokens(0);
-    sc.setTokens(0);
-    sd.setTokens(0);
-    se.setTokens(0);
-    sf.setTokens(0);
-    sg.setTokens(0);
-
-    sa_to_ta.setColor('black');
-    ta_to_sb.setColor('black');
-    sb_to_tc.setColor('black');
-    sc_to_tc.setColor('black');
-    tc_to_sd.setColor('black');
-    ta_to_sf.setColor('black');
-    sf_to_tb.setColor('black');
-    se_to_tb.setColor('black');
-    tb_to_se.setColor('black');
-    tb_to_sg.setColor('black');
-    sg_to_ta.setColor('black');
+    resetTokens();
+    resetColors();
+    resetTransitionsColors();
 
     document.getElementById('a-setter').value = 2;
     document.getElementById('b-setter').value = 1;

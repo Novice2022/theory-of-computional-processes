@@ -1,3 +1,18 @@
+.state-value  {
+    position: relative;
+    top: -10px;
+    right: -5px;
+    text-align: center;
+    font-size: 50px;
+    font-family: "Bitcount Prop Single", system-ui;
+    font-optical-sizing: auto;
+    font-variation-settings:
+        "slnt" 0,
+        "CRSV" 0.5,
+        "ELSH" 0,
+        "ELXP" 0;
+}
+
 #state-ready-to-consume {
     top: calc(var(--top-offset) + 0px);
     left: calc(var(--left-offset) + 0px);
@@ -33,8 +48,7 @@
     );
     left: calc(
         var(--left-offset) +
-        10px + var(--transition-rect-width) / 2 -
-        var(--state-size) / 2
+        35px
     );
 }
 
@@ -185,7 +199,7 @@
     );
     left: calc(
         var(--left-offset) +
-        var(--state-size) / 2 + 15px
+        var(--state-size) / 2 + 34px
     );
 }
 
@@ -430,4 +444,48 @@
         4px - 2px - 15px +
         30px - 1px
     );    
+}
+
+#tc-to-sa .first {
+    height: calc(
+        var(--state-size) / 2
+    );
+}
+
+#tc-to-sa .second {
+    top: -2px;
+    left: -155px;
+    height: 0;
+    width: 153px;
+}
+
+#tc-to-sa .third {
+    top: -290px;
+    left: -155px;
+    height: 286px;
+}
+
+#tc-to-sa .fourth {
+    left: -153px;
+    top: -578px;
+    width: 123px;
+}
+
+#tc-to-sa .arrow-end {
+    transform: rotate(-90deg);
+    top: -664px;
+    left: -96px;
+}
+
+#tc-to-sa {
+    top: calc(
+        var(--top-offset) +
+        var(--state-size) * 2 +
+        var(--state-to-transition-distance) * 3 +
+        6px * 2
+    );
+    left: calc(
+        var(--left-offset) +
+        var(--state-size) / 2 - 1px
+    );
 }

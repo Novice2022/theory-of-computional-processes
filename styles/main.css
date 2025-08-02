@@ -2,7 +2,7 @@
     --state-diameter: 35px;
     --state-size: calc(var(--state-diameter) + 10px * 2 + 2px);
 
-    --top-offset: 30px;
+    --top-offset: 70px;
     --left-offset: 10% + 100px;
 
     --state-to-transition-distance: calc(110px - var(--state-size));
@@ -13,6 +13,7 @@
 .content {
     padding-top: 30px;
     margin: 0 10%;
+    display: flex;
 }
 
 .state-component,
@@ -84,4 +85,60 @@
     top: -18px;
     right: -4px;
     transform: rotate(45deg);
+}
+
+#interface {
+    position: absolute;
+    right: 10%;
+}
+
+#interface h2 {
+    margin: 25px 0 5px;
+}
+
+.settings {
+    width: 460px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.settings .setter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.setter .controllers {
+    display: flex;
+    gap: 10px;
+}
+
+.actions {
+    width: 460px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.act-block {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.act-block button {
+    width: 100%;
+}
+
+button, input {
+
+    outline: none;
+}
+
+button {
+    
+}
+
+input {
+    
 }

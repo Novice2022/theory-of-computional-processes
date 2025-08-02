@@ -200,7 +200,7 @@
 #ta-to-sf .second {
     height: 0;
     width: calc(
-        130px -
+        170px -
         var(--top-offset) -
         (var(--state-to-transition-distance) / 2 - 2px) -
         4px - 2px

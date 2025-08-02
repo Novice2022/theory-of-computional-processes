@@ -11,7 +11,7 @@
 <body>
     <div class="content">
         <div class="row">
-            <div class="col-9" id="net">
+            <div id="net">
                 <div class="states">
                     <div class="state-component" id="state-ready-to-consume" name="sa">
                         <span class="state-label">Готов потреблять</span>
@@ -145,15 +145,62 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3" id="settings">
-                <!-- settings -->
+            <div id="interface">
+                <div class="settings">
+                    <h2>Установка значений для состояний</h2>
+                    <div class="setter">
+                        <span class="state-name">Готов производить</span>
+                        <div class="controllers">
+                            <input type="number" min="0" id="a-setter">
+                            <button type="button" onclick="updateState('a-setter', 'se')">Установить</button>
+                        </div>
+                    </div>
+                    <div class="setter">
+                        <span class="state-name">Готов потреблять</span>
+                        <div class="controllers">
+                            <input type="number" min="0" id="b-setter">
+                            <button type="button" onclick="updateState('b-setter', 'sa')">Установить</button>
+                        </div>
+                    </div>
+                    <div class="setter">
+                        <span class="state-name">Огранич. на вход. буфер</span>
+                        <div class="controllers">
+                            <input type="number" min="0" id="c-setter">
+                            <button type="button" onclick="updateState('c-setter', 'sf')">Установить</button>
+                        </div>
+                    </div>
+                    <div class="setter">
+                        <span class="state-name">Огранич. на выход. буфер</span>
+                        <div class="controllers">
+                            <input type="number" min="0" id="d-setter">
+                            <button type="button" onclick="updateState('d-setter', 'sc')">Установить</button>
+                        </div>
+                    </div>
+                    <button type="button" onclick="resetStates()">Сбросить состояния</button>
+                </div>
+                <div class="actions">
+                    <h2>Действия</h2>
+                    <div class="act-block">
+                        <button type="button" onclick="setInterfaceDisabled(true)">Начать</button>
+                        <button type="button" onclick="iterate()">Выполнить итерацию</button>
+                        <button type="button" onclick="setInterfaceDisabled(false)">Остановить</button>
+                    </div>
+                    <div class="act-block">
+                        <button type="button" onclick="getReachabilityTree()">Дерево достижимости</button>
+                        <button type="button" onclick="getReachabilityMatrix()">Матрица достижимости</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <!-- actions -->
+        <div class="reachabilities">
+            <div id="tree"></div>
+            <div id="matrix"></div>
         </div>
     </div>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+    <script src="./scripts/domManagers.js"></script>
+    <script src="./scripts/net/elements.js"></script>
+    <script src="./scripts/net/logic.js"></script>
+    <script src="./scripts/interface.js"></script>
     <script src="./scripts/main.js"></script>
 </body>
 </html>

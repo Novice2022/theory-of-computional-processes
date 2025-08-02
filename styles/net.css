@@ -159,12 +159,8 @@
 
 #sc-to-tc .second {
     height: calc(
-        var(--state-to-transition-distance) / 2
+        var(--state-to-transition-distance) / 2 - 6px
     );
-}
-
-#sc-to-tc .arrow-end {
-    top: -6px;
 }
 
 #sc-to-tc {

@@ -244,6 +244,7 @@ function iterate() {
     }
 
     addStatesIntoMatrix();
+    document.getElementById('tree-button').disabled = true;
 }
 
 function addStatesIntoMatrix() {
@@ -269,7 +270,210 @@ function getReachabilityMatrix() {
 }
 
 function getReachabilityTree() {
-    
+    document.getElementById('tree').innerHTML = '<h2>Дерево достижимости</h2>';
+
+    const container = d3.select('#tree').html('')
+        .style('overflow', 'auto')
+        .style('max-height', '90vh');
+
+    const svg = container.append('svg')
+        .attr('width', '100%')
+        .attr('height', '800');
+
+    const g = svg.append('g')
+        .attr('transform', 'translate(100, 50)');
+
+    class StateCopy {
+        constructor(state) {
+            this.tokens = state.tokens;
+            this.name = state.element.getAttribute('name');
+        }
+    }
+
+    class TransitionCopy {
+        constructor(transition) {
+            this.name = transition.element.getAttribute('name');
+            this.inputs = transition.inputArcs.map(arc => ({
+                source: arc.source.element.getAttribute('name')
+            }));
+            this.outputs = transition.outputArcs.map(arc => ({
+                destination: arc.destination.element.getAttribute('name')
+            }));
+        }
+
+        isEnabled(states) {
+            return this.inputs.every(input => states[input.source].tokens > 0);
+        }
+
+        execute(states) {
+            const newStates = {...states};
+            this.inputs.forEach(input => {
+                newStates[input.source] = new StateCopy({
+                    element: { getAttribute: () => input.source },
+                    tokens: newStates[input.source].tokens - 1
+                });
+            });
+            this.outputs.forEach(output => {
+                newStates[output.destination] = new StateCopy({
+                    element: { getAttribute: () => output.destination },
+                    tokens: newStates[output.destination].tokens + 1
+                });
+            });
+            return newStates;
+        }
+    }
+
+    const initialState = {
+        sa: new StateCopy(sa),
+        sb: new StateCopy(sb),
+        sc: new StateCopy(sc),
+        sd: new StateCopy(sd),
+        se: new StateCopy(se),
+        sf: new StateCopy(sf),
+        sg: new StateCopy(sg)
+    };
+
+    const transitions = [
+        new TransitionCopy(ta),
+        new TransitionCopy(tb),
+        new TransitionCopy(tc)
+    ];
+
+    const treeData = {
+        id: 'root',
+        name: formatMarking(initialState),
+        marking: initialState,
+        children: []
+    };
+
+    const visited = new Map();
+    visited.set(treeData.name, treeData);
+
+    const queue = [{ marking: initialState, parent: treeData }];
+
+    function formatMarking(marking) {
+        return `M${Object.values(marking).map(s => s.tokens).join(',')}`;
+    }
+
+    while (queue.length > 0) {
+        const { marking, parent } = queue.shift();
+        const currentKey = formatMarking(marking);
+
+        transitions.forEach(transition => {
+            if (transition.isEnabled(marking)) {
+                const newMarking = transition.execute(JSON.parse(JSON.stringify(marking)));
+                const newKey = formatMarking(newMarking);
+
+                if (!visited.has(newKey)) {
+                    const newNode = {
+                        id: `${parent.id}-${transition.name}`,
+                        name: newKey,
+                        marking: newMarking,
+                        transition: transition.name,
+                        children: []
+                    };
+                    parent.children.push(newNode);
+                    visited.set(newKey, newNode);
+                    queue.push({ marking: newMarking, parent: newNode });
+                } else {
+                    parent.children.push({
+                        id: `${parent.id}-ref-${transition.name}`,
+                        name: newKey,
+                        isReference: true,
+                        referenceTo: visited.get(newKey)
+                    });
+                }
+            }
+        });
+    }
+
+    const root = d3.hierarchy(treeData);
+    const treeLayout = d3.tree().size([1000, 600]);
+    treeLayout(root);
+
+    const links = g.selectAll('.link')
+        .data(root.links())
+        .enter().append('path')
+        .attr('class', 'link')
+        .attr('d', d3.linkVertical()
+            .x(d => d.x)
+            .y(d => d.y))
+        .attr('stroke', '#999')
+        .attr('fill', 'none');
+
+    const nodeGroups = g.selectAll('.node')
+        .data(root.descendants())
+        .enter().append('g')
+        .attr('class', 'node')
+        .attr('transform', d => `translate(${d.x},${d.y})`);
+
+    nodeGroups.append('circle')
+        .attr('r', 10)
+        .attr('fill', d => d.data.isReference ? '#ff7f0e' : '#1f77b4')
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 2)
+        .on('mouseover', function(event, d) {
+            tooltip.style('visibility', 'visible')
+                   .html(`<strong>${d.data.name}</strong><br>${getMarkingDetails(d.data.marking || d.data.referenceTo.marking)}`);
+        })
+        .on('mousemove', function(event) {
+            tooltip.style('top', (event.pageY - 10) + 'px')
+                  .style('left', (event.pageX + 10) + 'px');
+        })
+        .on('mouseout', function() {
+            tooltip.style('visibility', 'hidden');
+        });
+
+    const tooltip = d3.select('body').append('div')
+        .attr('class', 'tooltip')
+        .style('position', 'absolute')
+        .style('visibility', 'hidden')
+        .style('background', 'white')
+        .style('border', '1px solid #ddd')
+        .style('padding', '8px')
+        .style('border-radius', '4px')
+        .style('box-shadow', '2px 2px 6px rgba(0,0,0,0.1)')
+        .style('z-index', '1000');
+
+    function getMarkingDetails(marking) {
+        return Object.entries(marking)
+            .map(([name, state]) => `${name}: ${state.tokens}`)
+            .join('<br>');
+    }
+
+    const transitionLabels = g.selectAll('.transition-label')
+        .data(root.links().filter(d => d.source.data.transition))
+        .enter().append('text')
+        .attr('class', 'transition-label')
+        .attr('x', d => (d.source.x + d.target.x) / 2)
+        .attr('y', d => (d.source.y + d.target.y) / 2 - 15)  // Сдвиг выше
+        .attr('dx', d => {
+            // Сдвигаем влево или вправо в зависимости от направления
+            const angle = Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x);
+            return Math.cos(angle) * 15;
+        })
+        .text(d => d.source.data.transition)
+        .style('font-size', '12px')
+        .style('text-anchor', 'middle')
+        .style('fill', '#000')  // Чёрный цвет
+        .style('font-weight', 'bold')
+        .style('paint-order', 'stroke')  // Обводка текста
+        .style('stroke', '#fff')  // Белая обводка
+        .style('stroke-width', '3px')  // Толщина обводки
+        .style('stroke-linecap', 'round')
+        .style('stroke-linejoin', 'round');
+
+    svg.attr('height', d3.max(root.descendants(), d => d.y) + 200);
+    svg.attr('width', d3.max(root.descendants(), d => d.x) + 200);
+
+    d3.select('head').append('style').text(`
+        .tooltip { font-family: Arial; font-size: 12px; }
+        .node circle { cursor: pointer; }
+        .transition-label { font-weight: bold; pointer-events: none; }
+    `);
+
+    document.getElementById('tree-button').disabled = true;
+    treeCreated = true;
 }
 
 
@@ -277,5 +481,5 @@ let canExecute = true;
 let matrixTableBodyElement = document
     .getElementById('reachability-matrix')
     .getElementsByTagName('tbody')[0];
-
+let treeCreated = false;
 let iterationsCounter = 0;

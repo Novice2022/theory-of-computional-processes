@@ -20,11 +20,11 @@ function resetStates() {
     sc.setTokens(5);
 
     document.getElementById('a-setter').focus();
-
     
     canExecute = true;
     matrixTableBodyElement.innerHTML = '';
     iterationsCounter = 0;
+    treeCreated = false;
 
     addStatesIntoMatrix();
 }
@@ -46,5 +46,6 @@ function setInterfaceDisabled(toState) {
     document.getElementById('stop').disabled = !toState;
     
     document.getElementById('matrix-button').disabled = !(toState && canExecute);
-    document.getElementById('tree-button').disabled = !toState;
+    document.getElementById('tree-button').disabled =
+        (!toState || (treeCreated && iterationsCounter !== 0));
 }

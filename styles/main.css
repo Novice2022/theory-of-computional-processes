@@ -161,11 +161,23 @@ input:focus {
     top: 500px;
 }
 
+.reachabilities div {
+    margin-bottom: 50px;
+}
+
 table {
     width: 100%;
-    border-collapse: separate;
-    border-color: black;
-    border-width: 1px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    vertical-align: top;
+    padding: 0.3em;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #eee;
 }
 
 thead {

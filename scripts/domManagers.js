@@ -53,3 +53,7 @@ function manageDom() {
     manageStatesLabels();
     manageTransitionsLabels();
 }
+
+function finishDomManaging() {
+    document.getElementById('run').focus();
+}

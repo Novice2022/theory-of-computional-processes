@@ -240,6 +240,31 @@ function iterate() {
     if (shouldExecute.every(element => !element)) {
         canExecute = false;
         document.getElementById('iterate').disabled = true;
+        document.getElementById('matrix-button').disabled = true;
+    }
+
+    addStatesIntoMatrix();
+}
+
+function addStatesIntoMatrix() {
+    matrixTableBodyElement.innerHTML += `
+                        <tr>
+                            <td>M${ iterationsCounter }</td>
+                            <td>${ sa.tokens }</td>
+                            <td>${ sb.tokens }</td>
+                            <td>${ sc.tokens }</td>
+                            <td>${ sd.tokens }</td>
+                            <td>${ se.tokens }</td>
+                            <td>${ sf.tokens }</td>
+                            <td>${ sg.tokens }</td>
+                        </tr>`;
+
+    iterationsCounter++;
+}
+
+function getReachabilityMatrix() {
+    while (canExecute) {
+        iterate();
     }
 }
 
@@ -247,9 +272,10 @@ function getReachabilityTree() {
     
 }
 
-function getReachabilityMatrix() {
-
-}
-
 
 let canExecute = true;
+let matrixTableBodyElement = document
+    .getElementById('reachability-matrix')
+    .getElementsByTagName('tbody')[0];
+
+let iterationsCounter = 0;

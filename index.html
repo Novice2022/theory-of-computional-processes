@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сети Петри</title>
-
+<!-- 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&display=swap" rel="stylesheet"> -->
 
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/net.css">
@@ -214,15 +214,32 @@
                         <button id="stop" type="button" onclick="setInterfaceDisabled(false)">Остановить</button>
                     </div>
                     <div class="act-block">
-                        <button class="reachability" type="button" onclick="getReachabilityTree()">Дерево достижимости</button>
-                        <button class="reachability" type="button" onclick="getReachabilityMatrix()">Матрица достижимости</button>
+                        <button id="matrix-button" type="button" onclick="getReachabilityMatrix()">Матрица достижимости<br />(завершить выполнение)</button>
+                        <button id="tree-button" type="button" onclick="getReachabilityTree()">Дерево достижимости</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="reachabilities">
+            <div id="matrix">
+                <h2>Матрица достижимости</h2>
+                <table id="reachability-matrix">
+                    <thead>
+                        <tr>
+                            <td>Переход</td>
+                            <td>Готов потреблять</td>
+                            <td>Получено</td>
+                            <td>Огранич. на выход. буфер</td>
+                            <td>Выход. буфер</td>
+                            <td>Готов производить</td>
+                            <td>Ограничение на вход. буфер</td>
+                            <td>Вход. буфер</td>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
             <div id="tree"></div>
-            <div id="matrix"></div>
         </div>
     </div>
     <script src="./scripts/domManagers.js"></script>

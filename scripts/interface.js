@@ -1,9 +1,6 @@
 const updateState = (inputId, state) => {
     state.setTokens(document.getElementById(inputId).value);
 
-    // resetColors();
-    // resetTransitionsColors();
-
     canExecute = true;
 }
 
@@ -24,7 +21,12 @@ function resetStates() {
 
     document.getElementById('a-setter').focus();
 
+    
     canExecute = true;
+    matrixTableBodyElement.innerHTML = '';
+    iterationsCounter = 0;
+
+    addStatesIntoMatrix();
 }
 
 /**
@@ -43,9 +45,6 @@ function setInterfaceDisabled(toState) {
     document.getElementById('iterate').disabled = !(toState && canExecute);
     document.getElementById('stop').disabled = !toState;
     
-    const reachabilities = document.getElementsByClassName('reachability');
-
-    for (let i = 0; i < reachabilities.length; i++) {
-        reachabilities.item(i).disabled = !toState;
-    }
+    document.getElementById('matrix-button').disabled = !(toState && canExecute);
+    document.getElementById('tree-button').disabled = !toState;
 }
